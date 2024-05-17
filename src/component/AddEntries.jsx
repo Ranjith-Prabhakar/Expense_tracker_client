@@ -10,8 +10,8 @@ const AddEntries = () => {
   <option disabled selected>Type Of Transaction</option>
   <option>Cash</option>
   <option>Bank</option>
-  <option>Receivebles</option>
-  <option>Payables</option>
+  <option>{"Receivebles (Money Lended)"}</option>
+  <option>{"Payable (Money Borrowed)"}</option>
 </select>
       </div>
        {/* party */}

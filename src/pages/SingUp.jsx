@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signUp } from "../API/Api";
+import { toast } from "sonner";
 
 const SingUp = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState("");
+  const navigate = useNavigate()
   
   // Convert the regex string into a RegExp object
   const mail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -22,7 +25,7 @@ const SingUp = () => {
     setPassword(e.target.value);
   };
 
-  const submitForm = () => {
+  const submitForm = async() => {
     if (userName === "") {
       setShowAlert("Please fill the User name");
       setTimeout(() => { setShowAlert(""); }, 2000);
@@ -37,6 +40,13 @@ const SingUp = () => {
       setTimeout(() => { setShowAlert(""); }, 2000);
     }else{
       console.log(email,userName,password)
+      const result = await signUp(userName,email,password)
+      console.log(result,"8888")
+      if(result?.data?.success){
+         navigate('/login')
+      }else{
+               toast.error(result?.data?.message)
+      }
     }
   };
 

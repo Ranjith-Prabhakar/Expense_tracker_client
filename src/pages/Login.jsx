@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../API/Api";
+import { toast } from "sonner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showAlert, setShowAlert] = useState("");
-  
+   const navigate = useNavigate()
   // Convert the regex string into a RegExp object
   const mail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -19,7 +21,7 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const submitForm = () => {
+  const submitForm = async() => {
     if (email === "") {
       setShowAlert("Please fill the Email");
       setTimeout(() => { setShowAlert(""); }, 2000);
@@ -31,6 +33,12 @@ const Login = () => {
       setTimeout(() => { setShowAlert(""); }, 2000);
     }else{
       console.log(email,password)
+      const result = await login(email,password)
+      if(result?.data?.success){
+        navigate('/')
+      }else{
+          toast.error(result?.data?.message)
+      }
     }
   };
 
