@@ -16,3 +16,11 @@ try {
   console.log(error.message)
 }
 }
+
+// export const isLogedIn = async()=>{
+// try {
+//   return await axios.get(`${base_url}auth/isLogin`)
+// } catch (error) {
+//   console.log(error.message)
+// }
+// }
