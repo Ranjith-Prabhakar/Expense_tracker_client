@@ -12,6 +12,7 @@ import useStore from "../store/store"
 const Home = () => {
   const [menuItem,setMenuItem] = useState(1)
   const { user } = useStore((state) => ({ user: state.user }));
+  const { loginUser } = useStore((state) => ({ user: state.loginUser }));
   const [loading,setLoading] = useState(true)
   const [userState,setUserState] =useState(false)
   // const [userData,setUserData] =useState({})
@@ -27,6 +28,7 @@ const Home = () => {
       const userData = JSON.parse(localStorage.getItem("user"))
       console.log("userData locla",userData)
       if(userData.userName){
+        loginUser(userData)
         setUserState(true)
       }
       // setUserData(userData)

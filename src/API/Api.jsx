@@ -17,6 +17,22 @@ try {
 }
 }
 
+export const addMembers = async(userId,userName,email)=>{
+  try {
+    return await axios.post(`${base_url}auth/add-member`,{userId,userName,email})
+  } catch (error) {
+     console.log(error.message)
+  }
+}
+
+export const addTransaction = async(userId,modeOfTransaction,party,amount,narration)=>{
+  try {
+    return await axios.post(`${base_url}auth/add-transaction`,{userId,modeOfTransaction,party,amount,narration})
+  } catch (error) {
+     console.log(error.message)
+  }
+}
+
 // export const isLogedIn = async()=>{
 // try {
 //   return await axios.get(`${base_url}auth/isLogin`)
