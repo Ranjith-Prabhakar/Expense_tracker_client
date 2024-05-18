@@ -51,7 +51,7 @@ const DayBook = () => {
         <th></th>
         <th>{payableSum}</th>
         <th>{receivebleSum}</th>
-        <th>{receivebleSum - payableSum}</th>
+        <th>{ payableSum -receivebleSum}</th>
       </tr>
     </tfoot>
   </table>

@@ -8,30 +8,23 @@ import Receivebles from "../features/Receivebles"
 import AddMembers from "../features/AddMembers"
 import Navbar from "../Layout/Navbar"
 import useStore from "../store/store"
-// import { isLogedIn } from "../API/Api"
+import { getLocalStorageUser } from "../utils/localStorage"
 const Home = () => {
   const [menuItem,setMenuItem] = useState(1)
   const { user } = useStore((state) => ({ user: state.user }));
   const { loginUser } = useStore((state) => ({ user: state.loginUser }));
   const [loading,setLoading] = useState(true)
   const [userState,setUserState] =useState(false)
-  // const [userData,setUserData] =useState({})
-  // cookie retreival stage
 
-  console.log("user",user)
   useEffect(()=>{
-    // setUserData(user)
     if(user.userName){
       setUserState(true)
     }else{
-      // const userData = isLogedIn()
-      const userData = JSON.parse(localStorage.getItem("user"))
-      console.log("userData locla",userData)
-      if(userData.userName){
+      const userData = getLocalStorageUser()
+      if(userData && userData.userName){
         loginUser(userData)
         setUserState(true)
       }
-      // setUserData(userData)
     }
   },[])
   useEffect(()=>{
