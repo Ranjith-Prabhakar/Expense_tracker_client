@@ -16,48 +16,36 @@ const Payables = () => {
 
 const receivebles = []
 for(let item in data){
-  if(data[item].Receipts < data[item].Payments){
-    receivebles.push({name:item,amount:data[item].Payments - data[item].Receipts })
+  if(data[item].Receipts > data[item].Payments){
+    receivebles.push({name:item,amount:data[item].Receipts - data[item].Payments })
   }
 }
  
 console.log("data",data);
 console.log("receivebles",receivebles);
   return (
-     <div className="overflow-x-auto">
+    <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Mode Of Transaction</th>
-        <th>Type Of Transaction</th>
+        <th>Sl No</th>
         <th>Party</th>
         <th>Amount</th>
-      </tr>
+        </tr>
     </thead>
     <tbody>
       {/* row 1 */}
-      <tr className="hover">
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
+      {
+        receivebles.length && receivebles.map((item,index)=>
+          <tr key={index} className="hover">
+        <th>{index+1}</th>
+        <td>{item.name}</td>
+        <td>{item.amount}</td>
       </tr>
-      {/* row 2 */}
-      <tr className="hover">
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr className="hover">
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+        )
+      }
+      
     </tbody>
   </table>
 </div>
