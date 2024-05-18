@@ -57,10 +57,12 @@ try {
       <div className="">
         <select className="select select-bordered w-full " ref={modeOfTransactionRef}>
   <option disabled selected>Type Of Transaction</option>
-  <option>Cash</option>
-  <option>Bank</option>
-  <option>{"Receivebles (Money Lended)"}</option>
-  <option>{"Payable (Money Borrowed)"}</option>
+  <option>Cash Receipt</option>
+  <option>Cash Payment</option>
+  <option>Bank Receipt</option>
+  <option>Bank Payment</option>
+  <option>Lendings</option>
+  <option>Borrowings</option>
 </select>
       </div>
        {/* party */}

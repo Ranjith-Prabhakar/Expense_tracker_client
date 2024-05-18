@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addMembers } from "../API/Api";
 import useStore  from "../store/store";
-import { setLocalStorage } from "../utils/localStorage";
+import { setLocalStorageUser } from "../utils/localStorage";
 import { toast } from "sonner";
 
 const AddMembers = () => {
@@ -37,7 +37,7 @@ const AddMembers = () => {
       console.log(email,userName)
       const result = await addMembers(user._id,userName,email,)
       if(result.data.user){
-        setLocalStorage(result.data.user)
+        setLocalStorageUser(result.data.user)
         loginUser(result.data.user)
         toast.success(result.data.message)
         setEmail("")

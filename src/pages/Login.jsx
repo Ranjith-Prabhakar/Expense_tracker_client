@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../API/Api";
 import { toast } from "sonner";
 import useStore from "../store/store"
+import { setLocalStorageTransactions, setLocalStorageUser } from "../utils/localStorage";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ const Login = () => {
   const [showAlert, setShowAlert] = useState("");
    const navigate = useNavigate()
      const loginUser = useStore((state) => state.loginUser);
+     const addTransactios = useStore((state) => state.addTransactios);
   // Convert the regex string into a RegExp object
   const mail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -37,8 +39,10 @@ const Login = () => {
       console.log(email,password)
       const result = await login(email,password)
       if(result?.data?.success){
-        localStorage.setItem("user",JSON.stringify(result.data.user))
+        setLocalStorageUser(result.data.user)
         loginUser(result.data.user)
+        addTransactios(result.data.transactions)
+        setLocalStorageTransactions(result.data.transactions)
         navigate('/')
       }else{
           toast.error(result?.data?.message)

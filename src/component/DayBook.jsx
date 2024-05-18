@@ -1,5 +1,7 @@
-
+import useStore from '../store/store'
 const DayBook = () => {
+  const transactions = useStore(state=>state.transactions)
+  console.log("transactions",transactions)
   return (
     <div className="overflow-x-auto">
   <table className="table">
@@ -8,33 +10,24 @@ const DayBook = () => {
       <tr>
         <th>Date</th>
         <th>Mode Of Transaction</th>
-        <th>Type Of Transaction</th>
         <th>Party</th>
         <th>Amount</th>
       </tr>
     </thead>
     <tbody>
       {/* row 1 */}
-      <tr className="hover">
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
-      {/* row 2 */}
-      <tr className="hover">
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr className="hover">
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+      
+        {
+          transactions?.map((item,index) => (
+            <tr key={index} className="hover">
+            <th >{item.createdAt.slice(0,10)}</th>
+            <th >{item.modeOfTransaction}</th>
+            <th >{item.partyName}</th>
+            <th >{item.amount}</th>
+            </tr>
+          ))
+          
+        }
     </tbody>
   </table>
 </div>
