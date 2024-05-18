@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import useStore  from "../store/store";
 import { addTransaction } from "../API/Api";
 import { toast } from "sonner";
+import { setLocalStorageTransactions } from "../utils/localStorage";
 const AddEntries = () => {
   const user = useStore(state => state.user);
   const [showAlert, setShowAlert] = useState("");
@@ -25,14 +26,11 @@ try {
     setShowAlert("Please Add Narration");
       setTimeout(() => { setShowAlert(""); }, 2000);
   }else{
-    console.log("modeOfTransactionRef.current.value",modeOfTransactionRef.current.value)
-    console.log("partyRef.current.value",partyRef.current.value)
-    console.log("amount",amount)
-    console.log("narration",narration)
-    const result = await addTransaction(user._id,modeOfTransactionRef.current.value,partyRef.current.value,amount,narration)
+        const result = await addTransaction(user._id,modeOfTransactionRef.current.value,partyRef.current.value,amount,narration)
     console.log("result rom add entries",result)
     if(result.data.transactions){
       addTransactios(result.data.transactions)
+      setLocalStorageTransactions(result.data.transactions)
       toast.success(result.data.message)
       modeOfTransactionRef.current.value =""
       partyRef.current.value = ""
@@ -61,8 +59,13 @@ try {
   <option>Cash Payment</option>
   <option>Bank Receipt</option>
   <option>Bank Payment</option>
-  <option>Lendings</option>
-  <option>Borrowings</option>
+  {/* <option>Borrowings Receipt</option>
+  <option>Borrowings Payment</option>
+  <option>Lendings Receipt</option>
+  <option>Lendings Payment</option> */}
+
+  {/* <option>Lendings</option>
+  <option>Borrowings</option> */}
 </select>
       </div>
        {/* party */}
